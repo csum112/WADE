@@ -1,0 +1,105 @@
+@prefix schema: <http://schema.org/> .
+@prefix s: <created#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dbr: <http://dbpedia.org/resource/>.
+@prefix dbo: <http://dbpedia.org/ontology/>.
+ 
+<https://www.youtube-nocookie.com/embed/eBiFSH2fgek> 
+  a schema:CreativeWork , schema:Movie , <http://dbpedia.org/resource/Animation> ;
+  s:genre "funny" ;
+  s:educationalUse [
+	a <http://dbpedia.org/resource/Hackathon> ,
+         <http://www.wikidata.org/wiki/Q46855> ;
+	rdfs:label "WADe Hackathon #1"@en
+  ] ;
+
+s:hasPart (
+[ a schema:CreativeWork ;
+        schema:url <https://www.youtube.com/watch?v=eBiFSH2fgek&t=1s> ;
+        rdfs:label "primul"@ro ;
+        rdfs:comment "Never argue with idiots."@en ;
+        schema:contains (
+				  [ a <http://dbpedia.org/page/Animal> ;
+					s:using <https://dbpedia.org/page/Disagreement> ;
+					# rendered in a specific layer
+					s:drawndIn [ a s:Layer ; rdfs:label "foreground layer"@en ] ;
+					# these characters are fully animated
+					s:animated s:FullyAnimated ;
+					# the bizons are arguing about the thing floating in the water
+					s:involvedIn <http://dbpedia.org/resource/Demonstration> ;
+					s:performs ([ 
+					  # throws a rock at the floating thing
+					  a schema:Action ; 
+					  schema:instrument <http://dbpedia.org/resource/Stone_throwing> ; 
+					  # checking fails
+					  schema:actionStatus schema:FailedActionStatus ;
+					  s:type <http://dbpedia.org/resource/Throwing>
+					] 
+					[ 
+					  # bizon touches the floating thing with a branch
+					  a schema:Action ; 
+					  schema:instrument <http://dbpedia.org/resource/Branch> ; 
+					  # checking fails
+					  schema:actionStatus schema:FailedActionStatus ;
+					  s:type <https://dbpedia.org/page/Touching> 
+					]
+					[ 
+					  # bizon jumps on top of the floating thing
+					  a schema:Action ; 
+					  schema:instrument <http://dbpedia.org/resource/Feet> ; 
+					  # checking failes
+					  schema:actionStatus schema:FailedActionStatus ;
+					  s:type <http://dbpedia.org/resource/Jump> ;
+					]);       
+
+					# the character gets eaten in the last scene, at the end of chapter 
+					s:survivalStatus s:Dead ;
+					# additional tags
+					s:hasTag <https://medium.com/tag/assessment> ,  
+						<https://unsplash.com/s/photos/dead>,
+						<https://unsplash.com/s/photos/crocodile>;
+
+				])
+	]
+	[ 
+          a schema:CreativeWork ;
+  	  schema:url <https://www.youtube.com/watch?v=eBiFSH2fgek&t=130s> ;
+  	  rdfs:label "al treilea"@ro ;
+  	  rdfs:comment "Take heed of warnings."@en;
+          schema:contains ([
+            a dbr:Man ;
+            
+            # rendered in a specific layer
+            s:drawndIn [ a s:Layer ; rdfs:label "foreground layer"@en ] ;
+          
+            # this character is fully animated
+            s:animated s:FullyAnimated ;
+          
+            # next to a car
+            dbo:location dbr:Car;
+          
+            # being barked at by a dog
+            s:conflict dbr:Dog;
+            
+          
+            s:performs ([ 
+            # The man is mocking the dog
+               a schema:Action ;
+               schema:type schema:CommunicationAction, s:Mock;
+               s:until s:Event, dbo:Danger
+            ] [
+            # The man breaks the window
+               a schema:Action ;
+               schema:type s:Break;
+               s:target dbo:Window
+            ] [
+            # The man tries to escape and a monster appears
+               a schema:MoveAction ;
+               schema:instrument: dbr:Car;
+               schema:fromLocation dbr:Parking_Lot;
+               s:accompaniedBy dbr:Monster;
+               schema:actionStatus schema:FailedActionStatus 
+            ])
+          ]);
+	]
+).
