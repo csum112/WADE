@@ -1,0 +1,64 @@
+sh:MinLengthConstraintComponent
+	function validateMinLength($value, $minLength) {
+	if($value.isBlankNode()) {
+		return false;
+	}
+	return $value.value.length >= Number($minLength.lex);
+}
+
+sh:NodeConstraintComponent
+function validateNode($value, $node) {
+	return SHACL.nodeConformsToShape($value, $node);
+}
+
+sh:MaxLengthConstraintComponent
+function validateMaxLength($value, $maxLength) {
+	if($value.isBlankNode()) {
+		return false;
+	}
+	return $value.value.length <= Number($maxLength.lex);
+}
+
+sh:HasValueConstraintComponent
+function validateHasValueNode($this, $hasValue) {
+	return $this.equals($hasValue);
+}
+
+sh:LessThanOrEqualsConstraintComponentfunction validateLessThanOrEqualsProperty($this, $path, $lessThanOrEquals) {
+	var results = [];
+	$data.query().
+		path($this, toRDFQueryPath($path), "?value").
+		match($this, $lessThanOrEquals, "?otherValue").
+		forEach(function(sol) {
+					var c = SHACL.compareNodes(sol.value, sol.otherValue);
+					if(c == null || c > 0) {
+						results.push({
+							value: sol.value
+						});
+					}
+				});
+	return results;
+}
+function validateLessThanOrEqualsProperty($this, $path, $lessThanOrEquals) {
+	var results = [];
+	$data.query().
+		path($this, toRDFQueryPath($path), "?value").
+		match($this, $lessThanOrEquals, "?otherValue").
+		forEach(function(sol) {
+					var c = SHACL.compareNodes(sol.value, sol.otherValue);
+					if(c == null || c > 0) {
+						results.push({
+							value: sol.value
+						});
+					}
+				});
+	return results;
+}
+
+sh:AndConstraintComponent
+function validateAnd($value, $and) {
+	var shapes = new RDFQueryUtil($shapes).rdfListToArray($and);
+	for(var i = 0; i < shapes.length; i++) {
+		if(!SHACL.nodeConformsToShape($value, shapes[i])) {
+			return false;
+}
