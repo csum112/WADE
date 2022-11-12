@@ -1,3 +1,5 @@
+The following constraints can be used to validate the RDF models:
+
 sh:MinLengthConstraintComponent
 	function validateMinLength($value, $minLength) {
 	if($value.isBlankNode()) {
