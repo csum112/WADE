@@ -55,9 +55,10 @@ s:hasPart (
 					# the character gets eaten in the last scene, at the end of chapter 
 					s:survivalStatus s:Dead ;
 					# additional tags
-					s:hasTag <https://medium.com/tag/assessment> ,  
-						<https://unsplash.com/s/photos/dead>,
-						<https://unsplash.com/s/photos/crocodile>;
+					s:hasTag <https://medium.com/tag/assessment> ,
+						<https://unsplash.com/s/photos/crocodile>,
+						<https://unsplash.com/s/photos/branch>,
+						<https://unsplash.com/s/photos/stone>;
 
 				])
 	]
